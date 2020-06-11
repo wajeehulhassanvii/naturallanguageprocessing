@@ -9,6 +9,9 @@ services:
     volumes:
       - ./notebooks:/home/jovyan/projects/spark-nlp/notebooks/
       - ./datasets:/home/jovyan/projects/spark-nlp/datasets/
+      - ./checkpoints:/home/jovyan/projects/spark-nlp/checkpoints/
+    #command:  >
+    #  sh -c "pip install spark-nlp"
     # below first we wait_for_db then run the app
     # we will also have to migrate our database before
     # starting the app
