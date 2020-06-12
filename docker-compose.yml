@@ -10,8 +10,37 @@ services:
       - ./notebooks:/home/jovyan/projects/spark-nlp/notebooks/
       - ./datasets:/home/jovyan/projects/spark-nlp/datasets/
       - ./checkpoints:/home/jovyan/projects/spark-nlp/checkpoints/
+      - ./checkpoints/neo4j/data_other_machine:/home/jovyan/projects/spark-nlp/checkpoints/neo4j/data_other_machine
+      # - ./checkpoints/neo4j/import:/home/jovyan/projects/spark-nlp/checkpoints/neo4j/import
+      # - ./checkpoints/neo4j/:/home/jovyan/projects/spark-nlp/neo4j/
+      # - ./checkpoints/neo4j/import:/home/jovyan/projects/spark-nlp/neo4j/import
     #command:  >
     #  sh -c "pip install spark-nlp"
     # below first we wait_for_db then run the app
     # we will also have to migrate our database before
     # starting the app
+    depends_on:
+      - neo4j
+
+  neo4j:
+      image: neo4j:latest
+      # container_name: neo4j
+      #network_mode: host
+      # hostname: 0.0.0.0
+      hostname: neo4j-docker
+      ports:
+        - "7474:7474"
+        - "7687:7687"
+      volumes:
+        - ./checkpoints/neo4j/plugins:/var/lib/neo4j/plugins
+        - ./checkpoints/neo4j/import:/import
+        - ./checkpoints/neo4j/data1:/var/lib/neo4j/data
+        - ./checkpoints/neo4j/logs1:/var/lib/neo4j/logs
+        - ./checkpoints/neo4j/conf:/var/lib/neo4j/conf
+      environment:
+        - NEO4J_dbms_security_procedures_unrestricted=apoc.*
+        - NEO4J_apoc_import_file_enabled=true
+        - NEO4J_dbms_shell_enabled=true
+        - NEO4J_AUTH=neo4j/neo4j@123
+      # healthcheck:
+      #   test: "exit 0"
