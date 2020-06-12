@@ -7,3 +7,5 @@ checkpoints/
 checkpoints/*
 
 /home/wajeeh-machine/projects/naturallanguageprocessing/notebooks/config_graph_algo_with_pyspark_variable.py
+
+notebooks/config_graph_algo_with_pyspark_variable.py
