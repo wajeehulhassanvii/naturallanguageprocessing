@@ -7,3 +7,10 @@ checkpoints/
 checkpoints/*
 
 notebooks/config_graph_algo_with_pyspark_variable.py
+
+
+github-others/*
+
+resources/*
+*.ipynb_checkpoints
+
